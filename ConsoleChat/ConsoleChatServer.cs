@@ -5,12 +5,12 @@ using Chat;
 namespace ConsoleChat
 {
     /// <summary>
-    /// ConsoleChatServer class
+    /// ConsoleChatServer class.
     /// </summary>
     public class ConsoleChatServer : ChatServer
     {
         /// <summary>
-        /// Get server object
+        /// Get server object.
         /// </summary>
         public override ServerObject GetServerObject()
         {
@@ -19,7 +19,7 @@ namespace ConsoleChat
         }
 
         /// <summary>
-        /// Write message
+        /// Write message.
         /// </summary>
         public override void WriteMessage(string message)
         {

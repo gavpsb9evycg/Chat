@@ -4,20 +4,19 @@ using System.Net.Sockets;
 namespace WpfChat
 {
     /// <summary>
-    /// WpfServerObject class
+    /// WpfServerObject class.
     /// </summary>
     public class WpfServerObject : ServerObject
     {
-        private ChatWindow chatWindow;
+        private readonly ChatWindow chatWindow;
 
         public WpfServerObject(ChatWindow chatWindow)
         {
-            //Console.OutputEncoding = Encoding.UTF8;
             this.chatWindow = chatWindow;
         }
 
         /// <summary>
-        /// Get client object
+        /// Get client object.
         /// </summary>
         public override ClientObject GetClientObject(TcpClient tcpClient)
         {
@@ -25,7 +24,7 @@ namespace WpfChat
         }
 
         /// <summary>
-        /// Write message
+        /// Write message.
         /// </summary>
         public override void WriteMessage(string message)
         {

@@ -5,24 +5,24 @@ using System.Text;
 namespace Chat
 {
     /// <summary>
-    /// ClientObject abstract class
+    /// ClientObject abstract class.
     /// </summary>
     public abstract class ClientObject : Message
     {
         /// <summary>
-        /// Client id
+        /// Client id.
         /// </summary>
         public string Id { get; }
 
         /// <summary>
-        /// Client stream
+        /// Client stream.
         /// </summary>
         public NetworkStream Stream { get; private set; }
 
         private string userName;
-        private TcpClient client;
-        private ServerObject server;
-        private bool isBroadcastToAll;
+        private readonly TcpClient client;
+        private readonly ServerObject server;
+        private readonly bool isBroadcastToAll;
 
         public ClientObject(TcpClient tcpClient, ServerObject serverObject, bool isBroadcastToAll)
         {
@@ -39,17 +39,17 @@ namespace Chat
             {
                 Stream = client.GetStream();
 
-                //get username
-                string message = GetMessage();
+                // Get username.
+                String message = GetMessage();
                 userName = message;
 
                 message = userName + Consts.Client.Message.EnteredChat;
 
-                //send a message about entering the chat to all connected users
+                // Send a message about entering the chat to all connected users.
                 server.BroadcastMessage(message, this.Id, isBroadcastToAll);
                 WriteMessage(message);
 
-                //we receive messages from the client in an endless loop
+                // We receive messages from the client in an endless loop.
                 while (true)
                 {
                     try
@@ -74,26 +74,25 @@ namespace Chat
             }
             finally
             {
-                //in case of exiting the loop, close the resources
+                // In case of exiting the loop, close the resources.
                 server.RemoveConnection(this.Id);
                 Close();
             }
         }
 
         /// <summary>
-        /// Get incoming message and convert to string
+        /// Get incoming message and convert to string.
         /// </summary>
         private string GetMessage()
         {
-            //buffer for received data
-            byte[] data = new byte[64];
-
-            StringBuilder builder = new StringBuilder();
-            int bytes = 0;
+            // Buffer for received data.
+            var data = new byte[64];
+            
+            var builder = new StringBuilder();
 
             do
             {
-                bytes = Stream.Read(data, 0, data.Length);
+                Int32 bytes = Stream.Read(data, 0, data.Length);
                 builder.Append(Encoding.Unicode.GetString(data, 0, bytes));
             }
             while (Stream.DataAvailable);
@@ -102,15 +101,13 @@ namespace Chat
         }
 
         /// <summary>
-        /// Close connection
+        /// Close connection.
         /// </summary>
         public void Close()
         {
-            //close stream
             if (Stream != null)
                 Stream.Close();
 
-            //close client
             if (client != null)
                 client.Close();
         }

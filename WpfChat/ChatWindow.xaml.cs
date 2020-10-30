@@ -9,7 +9,7 @@ using System.Windows;
 namespace WpfChat
 {
     /// <summary>
-    /// Interaction logic for ChatWindow.xaml
+    /// Interaction logic.
     /// </summary>
     public partial class ChatWindow : Window
     {
@@ -24,15 +24,15 @@ namespace WpfChat
 
         private void Start()
         {
-            lbMessages.ItemsSource = messages;
+            messagesListBox.ItemsSource = messages;
             
             #if (SERVER)
-                //Start chat server
+                // Start chat server.
                 new WpfChatServer(this).Start();
             #endif
 
             #if (CLIENT)
-                //Start chat client
+                // Start chat client.
                 new WpfChatClient(this).Start();
             #endif
         }
@@ -42,28 +42,28 @@ namespace WpfChat
             Dispatcher.InvokeAsync(() =>
             {
                 messages.Add(CreateMessageItem(message));
-                scrollViewerMessages.ScrollToBottom();
+                messagesScrollViewer.ScrollToBottom();
             });
         }
 
         private MessageItem CreateMessageItem(string message)
         {
-            var item = new MessageItem
+            var messageItem = new MessageItem
             {
                 Message = message,
                 Time = DateTime.Now.ToString("HH:mm:ss")
             };
 
-            return item;
+            return messageItem;
         }
 
-        private void btnEnterMessage_Click(object sender, RoutedEventArgs e)
+        private void enterMessageButton_Click(object sender, RoutedEventArgs e)
         {
-            if (string.IsNullOrWhiteSpace(txtMessage.Text))
+            if (string.IsNullOrWhiteSpace(messageTextBox.Text))
                 return;
 
-            MessageEntered?.Invoke(this, txtMessage.Text);
-            txtMessage.Text = string.Empty;
+            MessageEntered?.Invoke(this, messageTextBox.Text);
+            messageTextBox.Text = string.Empty;
         }
 
         private void ChatWindow_OnClosing(object sender, CancelEventArgs e)

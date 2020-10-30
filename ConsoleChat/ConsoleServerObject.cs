@@ -6,7 +6,7 @@ using Chat;
 namespace ConsoleChat
 {
     /// <summary>
-    /// ConsoleServerObject class
+    /// ConsoleServerObject class.
     /// </summary>
     public class ConsoleServerObject : ServerObject
     {
@@ -16,7 +16,7 @@ namespace ConsoleChat
         }
 
         /// <summary>
-        /// Get client object
+        /// Get client object.
         /// </summary>
         public override ClientObject GetClientObject(TcpClient tcpClient)
         {
@@ -24,7 +24,7 @@ namespace ConsoleChat
         }
 
         /// <summary>
-        /// Write message
+        /// Write message.
         /// </summary>
         public override void WriteMessage(string message)
         {

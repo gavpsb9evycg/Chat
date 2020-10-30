@@ -1,11 +1,9 @@
-﻿using System;
-
-namespace Chat
+﻿namespace Chat
 {
     public abstract class Message
     {
         /// <summary>
-        /// Write message
+        /// Write message.
         /// </summary>
         public abstract void WriteMessage(string message);
     }

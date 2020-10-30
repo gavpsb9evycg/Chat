@@ -3,11 +3,11 @@
 namespace WpfChat
 {
     /// <summary>
-    /// WpfChatServer class
+    /// WpfChatServer class.
     /// </summary>
     public class WpfChatServer : ChatServer
     {
-        private ChatWindow chatWindow;
+        private readonly ChatWindow chatWindow;
 
         public WpfChatServer(ChatWindow chatWindow)
         {
@@ -15,16 +15,15 @@ namespace WpfChat
         }
 
         /// <summary>
-        /// Get server object
+        /// Get server object.
         /// </summary>
         public override ServerObject GetServerObject()
         {
-            //Console.OutputEncoding = Encoding.UTF8;
             return new WpfServerObject(chatWindow);
         }
 
         /// <summary>
-        /// Write message
+        /// Write message.
         /// </summary>
         public override void WriteMessage(string message)
         {

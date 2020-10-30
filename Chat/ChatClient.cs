@@ -6,7 +6,7 @@ using System.Threading;
 namespace Chat
 {
     /// <summary>
-    /// ChatClient abstract class
+    /// ChatClient abstract class.
     /// </summary>
     public abstract class ChatClient : Message
     {
@@ -14,7 +14,7 @@ namespace Chat
         private static NetworkStream stream;
 
         /// <summary>
-        /// Start chat client
+        /// Start chat client.
         /// </summary>
         public void Start()
         {
@@ -24,11 +24,11 @@ namespace Chat
                 client.Connect(Consts.Server.Host, Consts.Server.Port);
                 stream = client.GetStream();
 
-                byte[] data = Encoding.Unicode.GetBytes(Consts.Client.UserName);
+                Byte[] data = Encoding.Unicode.GetBytes(Consts.Client.UserName);
                 stream.Write(data, 0, data.Length);
 
-                //start a new thread to receive data
-                Thread receiveThread = new Thread(new ThreadStart(ReceiveMessage));
+                // Start a new thread to receive data.
+                var receiveThread = new Thread(ReceiveMessage);
                 receiveThread.Start();
                 
                 WriteMessage(Consts.Client.Message.Welcome + Consts.Client.UserName);
@@ -47,21 +47,21 @@ namespace Chat
         }
 
         /// <summary>
-        /// Send client message
+        /// Send client message.
         /// </summary>
         public abstract void SendMessage();
 
         /// <summary>
-        /// Write stream
+        /// Write stream.
         /// </summary>
         public void WriteStream(string message)
         {
-            byte[] data = Encoding.Unicode.GetBytes(message);
+            Byte[] data = Encoding.Unicode.GetBytes(message);
             stream.Write(data, 0, data.Length);
         }
 
         /// <summary>
-        /// Receive client message
+        /// Receive client message.
         /// </summary>
         public void ReceiveMessage()
         {
@@ -69,20 +69,18 @@ namespace Chat
             {
                 try
                 {
-                    //buffer for received data
-                    byte[] data = new byte[64];
-
-                    StringBuilder builder = new StringBuilder();
-                    int bytes = 0;
+                    // Buffer for received data.
+                    var data = new byte[64];
+                    var builder = new StringBuilder();
 
                     do
                     {
-                        bytes = stream.Read(data, 0, data.Length);
+                        Int32 bytes = stream.Read(data, 0, data.Length);
                         builder.Append(Encoding.Unicode.GetString(data, 0, bytes));
                     }
                     while (stream.DataAvailable);
 
-                    string message = builder.ToString();
+                    String message = builder.ToString();
                     WriteMessage(message);
                 }
                 catch
@@ -94,15 +92,13 @@ namespace Chat
         }
 
         /// <summary>
-        /// Disconnect client
+        /// Disconnect client.
         /// </summary>
         public void Disconnect()
         {
-            //close stream
             if (stream != null)
                 stream.Close();
 
-            //close client
             if (client != null)
                 client.Close();
             

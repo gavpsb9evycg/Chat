@@ -5,7 +5,7 @@ using Chat;
 namespace ConsoleChat
 {
     /// <summary>
-    /// ConsoleChatClient class
+    /// ConsoleChatClient class.
     /// </summary>
     public class ConsoleChatClient : ChatClient
     {
@@ -15,7 +15,7 @@ namespace ConsoleChat
         }
 
         /// <summary>
-        /// Send message
+        /// Send message.
         /// </summary>
         public override void SendMessage()
         {
@@ -27,7 +27,7 @@ namespace ConsoleChat
         }
 
         /// <summary>
-        /// Write message
+        /// Write message.
         /// </summary>
         public override void WriteMessage(string message)
         {

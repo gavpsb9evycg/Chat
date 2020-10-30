@@ -9,19 +9,19 @@ using System.Threading;
 namespace Chat
 {
     /// <summary>
-    /// ServerObject abstract class
+    /// ServerObject abstract class.
     /// </summary>
     public abstract class ServerObject : Message
     {
         private static TcpListener tcpListener;
 
         /// <summary>
-        /// All client connections
+        /// All client connections.
         /// </summary>
         private List<ClientObject> clients = new List<ClientObject>();
 
         /// <summary>
-        /// Add client connection
+        /// Add client connection.
         /// </summary>
         public void AddConnection(ClientObject clientObject)
         {
@@ -29,7 +29,7 @@ namespace Chat
         }
 
         /// <summary>
-        /// Remove client connection
+        /// Remove client connection.
         /// </summary>
         public void RemoveConnection(string id)
         {
@@ -40,7 +40,7 @@ namespace Chat
         }
 
         /// <summary>
-        /// Listen and accept client connections
+        /// Listen and accept client connections.
         /// </summary>
         public void Listen()
         {
@@ -69,18 +69,18 @@ namespace Chat
         }
 
         /// <summary>
-        /// Get client object
+        /// Get client object.
         /// </summary>
         public abstract ClientObject GetClientObject(TcpClient tcpClient);
 
         /// <summary>
-        /// Broadcast a message to all connected clients
+        /// Broadcast a message to all connected clients.
         /// </summary>
         public void BroadcastMessage(string message, string id, bool isBroadcastToAll)
         {
             byte[] data = Encoding.Unicode.GetBytes(message);
 
-            for (int i = 0; i < clients.Count; i++)
+            for (var i = 0; i < clients.Count; i++)
             {
                 if (isBroadcastToAll)
                 {
@@ -88,7 +88,7 @@ namespace Chat
                 }
                 else
                 {
-                    //if client id is not equal to sender id
+                    // If client id is not equal to sender id.
                     if (clients[i].Id != id)
                     {
                         clients[i].Stream.Write(data, 0, data.Length);
@@ -98,16 +98,16 @@ namespace Chat
         }
 
         /// <summary>
-        /// Disconnect all clients
+        /// Disconnect all clients.
         /// </summary>
         public void Disconnect()
         {
-            //stop server
+            // Stop server.
             tcpListener.Stop();
 
-            for (int i = 0; i < clients.Count; i++)
+            for (var i = 0; i < clients.Count; i++)
             {
-                //disconnect client
+                // Disconnect client.
                 clients[i].Close();
             }
 

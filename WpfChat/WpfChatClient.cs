@@ -1,31 +1,27 @@
-﻿using System;
-using Chat;
+﻿using Chat;
 
 namespace WpfChat
 {
     /// <summary>
-    /// WpfChatClient class
+    /// WpfChatClient class.
     /// </summary>
     public class WpfChatClient : ChatClient
     {
-        private ChatWindow chatWindow;
+        private readonly ChatWindow chatWindow;
         private string messageEntered;
 
         public WpfChatClient(ChatWindow chatWindow)
         {
-            //Console.OutputEncoding = Encoding.UTF8;
             this.chatWindow = chatWindow;
-            this.chatWindow.MessageEntered += OnMessageEntered;
-        }
-
-        private void OnMessageEntered(object sender, string messageEntered)
-        {
-            this.messageEntered = messageEntered;
-            SendMessage();
+            this.chatWindow.MessageEntered += (s, e) =>
+            {
+                this.messageEntered = e;
+                SendMessage();
+            };
         }
 
         /// <summary>
-        /// Send message
+        /// Send message.
         /// </summary>
         public override void SendMessage()
         {
@@ -36,7 +32,7 @@ namespace WpfChat
         }
 
         /// <summary>
-        /// Write message
+        /// Write message.
         /// </summary>
         public override void WriteMessage(string message)
         {

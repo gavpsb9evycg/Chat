@@ -12,14 +12,14 @@ namespace Chat
         private static Thread listenThread;
 
         /// <summary>
-        /// Start chat server
+        /// Start chat server.
         /// </summary>
         public void Start()
         {
             try
             {
                 server = GetServerObject();
-                listenThread = new Thread(new ThreadStart(server.Listen));
+                listenThread = new Thread(server.Listen);
                 listenThread.Start();
             }
             catch (Exception ex)
