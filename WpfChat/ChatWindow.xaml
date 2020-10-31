@@ -44,7 +44,7 @@
 
         <Grid Grid.Row="1">
             <TextBox x:Name="messageTextBox" MaxLength="100" Style="{StaticResource WaterMarkStyle}"  AcceptsReturn="True" TextWrapping="Wrap" Tag="Enter your message here..." HorizontalAlignment="Left" Height="80" Width="600" Margin="5,5,5,0" VerticalAlignment="Top" />
-            <Button x:Name="enterMessageButton" Content="Enter" Width="80" Height="80" HorizontalAlignment="Right" Margin="0,5,10,0" VerticalAlignment="Top" Click="enterMessageButton_Click" />
+            <Button x:Name="enterMessageButton" Content="Enter" Width="80" Height="80" HorizontalAlignment="Right" Margin="0,5,10,0" VerticalAlignment="Top" Click="EnterMessageButton_Click" />
         </Grid>
 
     </Grid>

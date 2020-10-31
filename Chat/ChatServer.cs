@@ -4,7 +4,7 @@ using System.Threading;
 namespace Chat
 {
     /// <summary>
-    /// ChatServer abstract class
+    /// ChatServer abstract class.
     /// </summary>
     public abstract class ChatServer : Message
     {
@@ -18,7 +18,7 @@ namespace Chat
         {
             try
             {
-                server = GetServerObject();
+                server = this.GetServerObject();
                 listenThread = new Thread(server.Listen);
                 listenThread.Start();
             }
@@ -29,7 +29,7 @@ namespace Chat
         }
 
         /// <summary>
-        /// Get server object
+        /// Get server object.
         /// </summary>
         public abstract ServerObject GetServerObject();
     }

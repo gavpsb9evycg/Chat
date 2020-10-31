@@ -18,14 +18,14 @@ namespace Chat
         /// <summary>
         /// All client connections.
         /// </summary>
-        private List<ClientObject> clients = new List<ClientObject>();
+        private readonly List<ClientObject> clients = new List<ClientObject>();
 
         /// <summary>
         /// Add client connection.
         /// </summary>
         public void AddConnection(ClientObject clientObject)
         {
-            clients.Add(clientObject);
+            this.clients.Add(clientObject);
         }
 
         /// <summary>
@@ -33,10 +33,10 @@ namespace Chat
         /// </summary>
         public void RemoveConnection(string id)
         {
-            ClientObject client = clients.FirstOrDefault(c => c.Id == id);
+            ClientObject client = this.clients.FirstOrDefault(c => c.Id == id);
 
             if (client != null)
-                clients.Remove(client);
+                this.clients.Remove(client);
         }
 
         /// <summary>

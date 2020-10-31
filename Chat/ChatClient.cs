@@ -24,7 +24,7 @@ namespace Chat
                 client.Connect(Consts.Server.Host, Consts.Server.Port);
                 stream = client.GetStream();
 
-                Byte[] data = Encoding.Unicode.GetBytes(Consts.Client.UserName);
+                byte[] data = Encoding.Unicode.GetBytes(Consts.Client.UserName);
                 stream.Write(data, 0, data.Length);
 
                 // Start a new thread to receive data.
@@ -38,7 +38,7 @@ namespace Chat
             }
             catch (Exception ex)
             {
-                WriteMessage(ex.Message);
+                this.WriteMessage(ex.Message);
             }
             finally
             {
@@ -56,7 +56,7 @@ namespace Chat
         /// </summary>
         public void WriteStream(string message)
         {
-            Byte[] data = Encoding.Unicode.GetBytes(message);
+            byte[] data = Encoding.Unicode.GetBytes(message);
             stream.Write(data, 0, data.Length);
         }
 
@@ -75,7 +75,7 @@ namespace Chat
 
                     do
                     {
-                        Int32 bytes = stream.Read(data, 0, data.Length);
+                        int bytes = stream.Read(data, 0, data.Length);
                         builder.Append(Encoding.Unicode.GetString(data, 0, bytes));
                     }
                     while (stream.DataAvailable);

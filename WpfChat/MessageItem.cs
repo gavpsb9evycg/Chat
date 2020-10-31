@@ -4,6 +4,9 @@ namespace WpfChat
 {
     public class MessageItem : INotifyPropertyChanged
     {
+        private string message;
+        private string time;
+
         public event PropertyChangedEventHandler PropertyChanged;
 
         protected virtual void OnPropertyChanged(string propertyName)
@@ -13,30 +16,28 @@ namespace WpfChat
                 handler(this, new PropertyChangedEventArgs(propertyName));
         }
 
-        private string _message;
         public string Message
         {
-            get { return _message; }
+            get => this.message;
             set
             {
-                if (_message != value)
+                if (this.message != value)
                 {
-                    _message = value;
-                    OnPropertyChanged("Message");
+                    this.message = value;
+                    this.OnPropertyChanged("Message");
                 }
             }
         }
 
-        private string _time;
         public string Time
         {
-            get { return _time; }
+            get => this.time;
             set
             {
-                if (_time != value)
+                if (this.time != value)
                 {
-                    _time = value;
-                    OnPropertyChanged("Time");
+                    this.time = value;
+                    this.OnPropertyChanged("Time");
                 }
             }
         }

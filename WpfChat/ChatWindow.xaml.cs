@@ -1,4 +1,4 @@
-﻿//#define SERVER
+﻿// #define SERVER
 #define CLIENT
 
 using System;
@@ -14,35 +14,36 @@ namespace WpfChat
     public partial class ChatWindow : Window
     {
         private readonly ObservableCollection<MessageItem> messages = new ObservableCollection<MessageItem>();
-        public event EventHandler<string> MessageEntered;
 
         public ChatWindow()
         {
-            InitializeComponent();
-            Start();
+            this.InitializeComponent();
+            this.Start();
         }
+
+        public event EventHandler<string> MessageEntered;
 
         private void Start()
         {
-            messagesListBox.ItemsSource = messages;
-            
-            #if (SERVER)
-                // Start chat server.
-                new WpfChatServer(this).Start();
-            #endif
+            this.messagesListBox.ItemsSource = this.messages;
 
-            #if (CLIENT)
-                // Start chat client.
-                new WpfChatClient(this).Start();
+#if SERVER
+            // Start chat server.
+            new WpfChatServer(this).Start();
+#endif
+
+#if CLIENT
+            // Start chat client.
+            new WpfChatClient(this).Start();
             #endif
         }
 
         public void AddMessage(string message)
         {
-            Dispatcher.InvokeAsync(() =>
+            this.Dispatcher.InvokeAsync(() =>
             {
-                messages.Add(CreateMessageItem(message));
-                messagesScrollViewer.ScrollToBottom();
+                this.messages.Add(this.CreateMessageItem(message));
+                this.messagesScrollViewer.ScrollToBottom();
             });
         }
 
@@ -51,19 +52,21 @@ namespace WpfChat
             var messageItem = new MessageItem
             {
                 Message = message,
-                Time = DateTime.Now.ToString("HH:mm:ss")
+                Time = DateTime.Now.ToString("HH:mm:ss"),
             };
 
             return messageItem;
         }
 
-        private void enterMessageButton_Click(object sender, RoutedEventArgs e)
+        private void EnterMessageButton_Click(object sender, RoutedEventArgs e)
         {
-            if (string.IsNullOrWhiteSpace(messageTextBox.Text))
+            if (string.IsNullOrWhiteSpace(this.messageTextBox.Text))
+            {
                 return;
+            }
 
-            MessageEntered?.Invoke(this, messageTextBox.Text);
-            messageTextBox.Text = string.Empty;
+            this.MessageEntered?.Invoke(this, this.messageTextBox.Text);
+            this.messageTextBox.Text = string.Empty;
         }
 
         private void ChatWindow_OnClosing(object sender, CancelEventArgs e)
